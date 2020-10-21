@@ -1,16 +1,13 @@
 let authUserData = null;
 let userDatabase = [];
 
-function isValidEmail(email) {
+function checkValidEmail(email) {
   let regularExpressionForCheckingMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (regularExpressionForCheckingMail.test(email) === false) {
-    return false;
-  }
-  return true;
+  return regularExpressionForCheckingMail.test(email);
 }
 
 function hasDigitPassword(password) {
-  let digits = "0123456789";
+  let digits = '0123456789';
   let isDigit = false;
   for (let i = 0; i < password.length; i++) {
     if (digits.indexOf(password[i] !== -1)) {
@@ -20,7 +17,7 @@ function hasDigitPassword(password) {
   return isDigit;
 }
 
-function isValidPassword(password) {
+function checkValidPassword(password) {
   if (
     password.length >= 6 &&
     hasDigitPassword(password) &&
@@ -30,4 +27,22 @@ function isValidPassword(password) {
   }
   return false;
 }
+
+function register(email,password){
+  if(!checkValidEmail(email)){
+    return 'Email невалиден';
+  }
+  if(!checkValidPassword(password)){
+    return 'Password невалиден';
+  }
+  user = {
+    email : email,
+    password : password
+  };
+  userDatabase.push(user);
+  return "Пользователь успешно добавлен";
+}
+
+console.log(register('smyshlyaev12@list.ru','Pass123'));
+console.log(userDatabase);
 
