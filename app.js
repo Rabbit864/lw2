@@ -5,7 +5,7 @@ function isValidEmail(email) {
   }
   return true;
 }
-function checkingValidatePassword(password){
+function isValidPassword(password){
   let digits = "0123456789";
   let isDigit = false;
   for(let i = 0; i < password.length; i++){
