@@ -7,7 +7,7 @@ function checkValidEmail(email) {
 }
 
 function hasDigitPassword(password) {
-  let digits = '0123456789';
+  let digits = "0123456789";
   let isDigit = false;
   for (let i = 0; i < password.length; i++) {
     if (digits.indexOf(password[i] !== -1)) {
@@ -28,21 +28,35 @@ function checkValidPassword(password) {
   return false;
 }
 
-function register(email,password){
-  if(!checkValidEmail(email)){
-    return 'Email невалиден';
+function register(email, password) {
+  if (!checkValidEmail(email)) {
+    return "Email невалиден";
   }
-  if(!checkValidPassword(password)){
-    return 'Password невалиден';
+  if (!checkValidPassword(password)) {
+    return "Password невалиден";
   }
   user = {
-    email : email,
-    password : password
+    email: email,
+    password: password,
   };
   userDatabase.push(user);
   return "Пользователь успешно добавлен";
 }
 
-console.log(register('smyshlyaev12@list.ru','Pass123'));
-console.log(userDatabase);
+function signIn(email, password) {
+  if (!checkValidEmail(email)) {
+    return "Email невалиден";
+  }
+  if (!checkValidPassword(password)) {
+    return "Password невалиден";
+  }
+  for (let i = 0; i < userDatabase.length; i++) {
+    if (userDatabase[i].email === email && userDatabase[i].password === password) {
+      authUserData = true;
+      return "Вы успешно авторизовались";
+    }
+  }
+}
 
+console.log(register("smyshlyaev12@list.ru", "Pass123"));
+console.log(signIn("smyshlyaev12@list.ru", "Pass123"));
