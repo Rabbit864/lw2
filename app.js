@@ -91,5 +91,13 @@ function resetPassword(email, oldPassword, newPassword) {
   }
 }
 
+function isAuth() {
+  return authUserData ? "Вы авторизованы" : "Вы не авторизованы";
+}
+
 console.log(register("smyshlyaev12@list.ru", "Pass123"));
 console.log(signIn("smyshlyaev12@list.ru", "Pass123"));
+console.log(isAuth());
+console.log(signOut());
+console.log(resetPassword("smyshlyaev12@list.ru", "Pass123", "Passs123"));
+console.log(isAuth());
