@@ -51,9 +51,14 @@ function signIn(email, password) {
     return "Password невалиден";
   }
   for (let i = 0; i < userDatabase.length; i++) {
-    if (userDatabase[i].email === email && userDatabase[i].password === password) {
+    if (
+      userDatabase[i].email === email &&
+      userDatabase[i].password === password
+    ) {
       authUserData = true;
       return "Вы успешно авторизовались";
+    } else {
+      return "Вы не зарегистрированы";
     }
   }
 }
