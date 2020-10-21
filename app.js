@@ -2,7 +2,7 @@ let authUserData = null;
 let userDatabase = [];
 
 function checkValidEmail(email) {
-  let regularExpressionForCheckingMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  let regularExpressionForCheckingMail = /^(([^<>()[\]\\.,;:\s@\']+(\.[^<>()[\]\\.,;:\s@\']+)*)|(\'.+\'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return regularExpressionForCheckingMail.test(email);
 }
 
@@ -33,7 +33,7 @@ function register(email, password) {
     return "Email невалиден";
   }
   if (!checkValidPassword(password)) {
-    return "Password невалиден";
+    return "Пароль невалиден";
   }
   user = {
     email: email,
@@ -48,7 +48,7 @@ function signIn(email, password) {
     return "Email невалиден";
   }
   if (!checkValidPassword(password)) {
-    return "Password невалиден";
+    return "Пароль невалиден";
   }
   for (let i = 0; i < userDatabase.length; i++) {
     if (
@@ -65,7 +65,30 @@ function signIn(email, password) {
 
 function signOut() {
   authUserData = null;
-  return "Выход выполнен";
+  return "Вы успешно вышли";
+}
+
+function resetPassword(email, oldPassword, newPassword) {
+  if (!checkValidEmail(email)) {
+    return "Email невалиден";
+  }
+  if (!checkValidPassword(oldPassword)) {
+    return "Старый пароль невалиден";
+  }
+  if (!checkValidPassword(newPassword)) {
+    return "Новый пароль невалиден";
+  }
+  for (let i = 0; i < userDatabase.length; i++) {
+    if (
+      userDatabase[i].email === email &&
+      userDatabase[i].password === oldPassword
+    ) {
+      userDatabase[i].password = newPassword;
+      return "Пароль успешно изменён";
+    } else {
+      return "Пользователя с таким email и паролем не существует";
+    }
+  }
 }
 
 console.log(register("smyshlyaev12@list.ru", "Pass123"));
