@@ -63,5 +63,10 @@ function signIn(email, password) {
   }
 }
 
+function signOut() {
+  authUserData = null;
+  return "Выход выполнен";
+}
+
 console.log(register("smyshlyaev12@list.ru", "Pass123"));
 console.log(signIn("smyshlyaev12@list.ru", "Pass123"));
