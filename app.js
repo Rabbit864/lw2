@@ -1,4 +1,4 @@
-let authUserData = null;
+let authUserData = false;
 let userDatabase = [];
 
 function checkValidEmail(email) {
@@ -92,7 +92,7 @@ function resetPassword(email, oldPassword, newPassword) {
 }
 
 function isAuth() {
-  return authUserData ? "Вы авторизованы" : "Вы не авторизованы";
+  return authUserData;
 }
 
 console.log(register("smyshlyaev12@list.ru", "Pass123"));
