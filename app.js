@@ -6,26 +6,12 @@ function checkValidEmail(email) {
   return regularExpressionForCheckingMail.test(email);
 }
 
-function hasDigitPassword(password) {
-  let digits = "0123456789";
-  let isDigit = false;
-  for (let i = 0; i < password.length; i++) {
-    if (digits.indexOf(password[i] !== -1)) {
-      isDigit = true;
-    }
-  }
-  return isDigit;
-}
-
 function checkValidPassword(password) {
-  if (
+  return (
     password.length >= 6 &&
-    hasDigitPassword(password) &&
+    parseInt(password.replace(/\D/g, "")) &&
     password.charAt(0).toUpperCase() === password.charAt(0)
-  ) {
-    return true;
-  }
-  return false;
+  );
 }
 
 function register(email, password) {
@@ -39,11 +25,11 @@ function register(email, password) {
     email: email,
     password: password,
   };
-  for (let i = 0; i < userDatabase.length; i++) {
-    if (userDatabase[i].email === email) {
-      return "Данный пользователь уже зарегистрирован";
-    }
+
+  if (userDatabase.some((arrVal) => email === arrVal.email)) {
+    return "Данный пользователь уже зарегистрирован";
   }
+
   userDatabase.push(user);
   return "Пользователь успешно добавлен";
 }
@@ -206,6 +192,8 @@ function validator(value) {
 
 console.log("Первая часть задания");
 console.log(register("smyshlyaev12@list.ru", "Pass123"));
+console.log(register("smyshlyaev12@list.ru", "Pass123"));
+console.log(register("smyshlyaev122@list.ru", "Pass123"));
 console.log(signIn("smyshlyaev12@list.ru", "Pass123"));
 console.log(isAuth());
 console.log(signOut());
@@ -215,47 +203,203 @@ console.log(isAuth());
 
 console.log("Вторая часть задания");
 console.log("test isArray");
-console.log(validator("1").isArray().validate());
-console.log(validator([123]).isArray().validate());
+console.log(
+  validator("1")
+    .isArray()
+    .validate()
+);
+console.log(
+  validator([123])
+    .isArray()
+    .validate()
+);
 console.log("test isString");
-console.log(validator("1").isString().validate());
-console.log(validator([123]).isString().validate());
+console.log(
+  validator("1")
+    .isString()
+    .validate()
+);
+console.log(
+  validator([123])
+    .isString()
+    .validate()
+);
 console.log("test isNumber");
-console.log(validator("1").isNumber().validate());
-console.log(validator([123]).isNumber().validate());
-console.log(validator(1).isNumber().validate());
+console.log(
+  validator("1")
+    .isNumber()
+    .validate()
+);
+console.log(
+  validator([123])
+    .isNumber()
+    .validate()
+);
+console.log(
+  validator(1)
+    .isNumber()
+    .validate()
+);
 console.log("test isDate");
-console.log(validator("25.12.1993").isDate().validate());
-console.log(validator("2").isDate().validate());
+console.log(
+  validator("25.12.1993")
+    .isDate()
+    .validate()
+);
+console.log(
+  validator("2")
+    .isDate()
+    .validate()
+);
 console.log("test isDate");
-console.log(validator(2.123).isFloat().validate());
-console.log(validator(2).isFloat().validate());
+console.log(
+  validator(2.123)
+    .isFloat()
+    .validate()
+);
+console.log(
+  validator(2)
+    .isFloat()
+    .validate()
+);
 console.log("test min");
-console.log(validator(10).isNumber().min(1).validate());
-console.log(validator(10).isNumber().min(10).validate());
-console.log(validator(10).isNumber().min(11).validate());
+console.log(
+  validator(10)
+    .isNumber()
+    .min(1)
+    .validate()
+);
+console.log(
+  validator(10)
+    .isNumber()
+    .min(10)
+    .validate()
+);
+console.log(
+  validator(10)
+    .isNumber()
+    .min(11)
+    .validate()
+);
 console.log("test max");
-console.log(validator(10).isNumber().max(1).validate());
-console.log(validator(10).isNumber().max(10).validate());
-console.log(validator(10).isNumber().max(11).validate());
-console.log(validator(10).isNumber().min(4).max(9).validate());
-console.log(validator(10).isNumber().min(4).max(11).validate());
+console.log(
+  validator(10)
+    .isNumber()
+    .max(1)
+    .validate()
+);
+console.log(
+  validator(10)
+    .isNumber()
+    .max(10)
+    .validate()
+);
+console.log(
+  validator(10)
+    .isNumber()
+    .max(11)
+    .validate()
+);
+console.log(
+  validator(10)
+    .isNumber()
+    .min(4)
+    .max(9)
+    .validate()
+);
+console.log(
+  validator(10)
+    .isNumber()
+    .min(4)
+    .max(11)
+    .validate()
+);
 console.log("test minLength with isString");
-console.log(validator("10").isString().minLength(1).validate());
-console.log(validator("10").isString().minLength(10).validate());
+console.log(
+  validator("10")
+    .isString()
+    .minLength(1)
+    .validate()
+);
+console.log(
+  validator("10")
+    .isString()
+    .minLength(10)
+    .validate()
+);
 console.log("test minLength with isArray");
-console.log(validator([111]).isArray().minLength(1).validate());
-console.log(validator([111, 1, 2, 3]).isArray().minLength(10).validate());
+console.log(
+  validator([111])
+    .isArray()
+    .minLength(1)
+    .validate()
+);
+console.log(
+  validator([111, 1, 2, 3])
+    .isArray()
+    .minLength(10)
+    .validate()
+);
 console.log("test maxLength with isArray");
-console.log(validator([111]).isArray().maxLength(5).validate());
-console.log(validator([111, 1, 2, 3]).isArray().maxLength(3).validate());
+console.log(
+  validator([111])
+    .isArray()
+    .maxLength(5)
+    .validate()
+);
+console.log(
+  validator([111, 1, 2, 3])
+    .isArray()
+    .maxLength(3)
+    .validate()
+);
 console.log("test maxLength with isString");
-console.log(validator("103").isString().maxLength(5).validate());
-console.log(validator("1034").isString().maxLength(3).validate());
+console.log(
+  validator("103")
+    .isString()
+    .maxLength(5)
+    .validate()
+);
+console.log(
+  validator("1034")
+    .isString()
+    .maxLength(3)
+    .validate()
+);
 console.log("test equal");
-console.log(validator([]).isArray().equal([1, 2, 3]).validate());
-console.log(validator([1, 2, 3]).isArray().equal([1, 2, 3]).validate());
-console.log(validator("[1, 2, 3]").isString().equal("[1, 2, 3]").validate());
-console.log(validator("[1, 2, 3]").isString().equal("[2, 3, 1]").validate());
-console.log(validator(10).isNumber().equal(10).validate());
-console.log(validator(101).isNumber().equal(10).validate());
+console.log(
+  validator([])
+    .isArray()
+    .equal([1, 2, 3])
+    .validate()
+);
+console.log(
+  validator([1, 2, 3])
+    .isArray()
+    .equal([1, 2, 3])
+    .validate()
+);
+console.log(
+  validator("[1, 2, 3]")
+    .isString()
+    .equal("[1, 2, 3]")
+    .validate()
+);
+console.log(
+  validator("[1, 2, 3]")
+    .isString()
+    .equal("[2, 3, 1]")
+    .validate()
+);
+console.log(
+  validator(10)
+    .isNumber()
+    .equal(10)
+    .validate()
+);
+console.log(
+  validator(101)
+    .isNumber()
+    .equal(10)
+    .validate()
+);
